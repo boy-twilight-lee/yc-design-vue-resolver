@@ -75,43 +75,25 @@ export default defineConfig({
 
 配置完成后，重启你的 Vite 服务。现在你就可以在任何 `.vue` 文件中直接使用 `yc-design-vue` 的组件了，无需任何 `import` 语句。
 
-**使用前:**
+**使用前（需要在main.ts里面注册）:**
 
-```vue
-<script setup>
-import { YcButton, YcInput } from 'yc-design-vue';
-</script>
-
-<template>
-  <YcButton type="primary">按钮</YcButton>
-  <YcInput placeholder="请输入..." />
-</template>
-
-<style>
-/* 需要手动引入组件和依赖的样式，非常繁琐 */
-@import 'yc-design-vue/es/shared.css';
-@import 'yc-design-vue/es/Button/index.css';
-@import 'yc-design-vue/es/Input/index.css';
-/* ... 可能还有 Spin 等其他依赖组件的样式 */
-</style>
+```typescript
+import { createApp } from 'vue';
+import App from './App.vue';
+import YcDesignVue from 'yc-design-vue';
+import 'yc-design-vue/es/style.css';
+const app = createApp(App);
+app.use(YcDesignVue);
+app.mount('#app');
 ```
 
-**使用后 (现在的方式):**
+**使用后 (现在的方式，可直接使用无需注册):**
 
 ```vue
-<script setup>
-// 完全不需要 import 组件和样式
-// 类型提示由 components.d.ts 提供
-</script>
-
 <template>
   <YcButton type="primary">按钮</YcButton>
   <YcInput placeholder="请输入..." />
 </template>
-
-<style>
-/* 样式文件会被自动按需注入，这里保持干净 */
-</style>
 ```
 
 ## ⚙️ 选项配置
