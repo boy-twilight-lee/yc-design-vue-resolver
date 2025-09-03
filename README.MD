@@ -47,7 +47,7 @@ pnpm add unplugin-vue-components yc-design-vue-resolver -D
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import Components from 'unplugin-vue-components/vite';
-import { YcDesignVueResolver } from 'yc-design-vue-resolver';
+import YcDesignVueResolver from 'yc-design-vue-resolver';
 
 export default defineConfig({
   plugins: [
@@ -125,7 +125,7 @@ import { YcButton, YcInput } from 'yc-design-vue';
 ```typescript
 // vite.config.ts
 import Components from 'unplugin-vue-components/vite';
-import { YcDesignVueResolver } from 'yc-design-vue-resolver';
+import YcDesignVueResolver from 'yc-design-vue-resolver';
 
 // ...
 Components({
@@ -138,7 +138,7 @@ Components({
       // exclude: /Layout$/,
 
       // 使用数组排除多个组件和匹配项
-      // exclude: ['YcModal', 'YcDrawer', /^YcGrid.*/]
+      // exclude: ['Modal', 'Drawer', /^Grid.*/]
     }),
   ],
 });
