@@ -6,7 +6,7 @@
   <a href="./LICENSE" target="_blank"><img src="https://img.shields.io/github/license/your-github-username/yc-design-vue-resolver.svg" alt="License"></a>
 </p>
 
-`yc-design-vue-resolver` 是为 [yc-design-vue](https://yc-design-vue.vercel.app/) UI 库量身定制的组件解析器。
+`yc-design-vue-resolver` 是为 [yc-design-vue](https://yc-design-vue.cloud) UI 库量身定制的组件解析器。
 
 它专为 [Vite](https://vitejs.dev/) 项目设计，配合 [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components) 插件，可以实现 `yc-design-vue` 组件及其样式的全自动按需导入。
 

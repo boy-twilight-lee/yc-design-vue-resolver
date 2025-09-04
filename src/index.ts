@@ -1,5 +1,19 @@
-import { ComponentInfo, ComponentResolver, YcDesignVueResolverOptions } from './type';
-import { isExclude } from './utils';
+interface ComponentInfo {
+  name: string;
+  from: string;
+  as: string;
+  sideEffects?: string | string[];
+}
+
+interface ComponentResolver {
+  type: 'component';
+  resolve: (name: string) => ComponentInfo | undefined | null;
+}
+
+interface YcDesignVueResolverOptions {
+  exclude?: string | RegExp | (string | RegExp)[];
+  sideEffect?: boolean;
+}
 
 // 子组件映射表：将子组件映射到其父组件/目录
 const subCompt: Record<string, string> = {
@@ -87,6 +101,19 @@ const componentDependencies: Record<string, string[]> = {
   AutoComplete: ['Select'],
 };
 
+//检查一个组件名是否应该被排除
+function isExclude(name: string, exclude?: string | RegExp | (string | RegExp)[]): boolean {
+  if (!exclude) return false;
+  if (typeof exclude === 'string') return name === exclude;
+  if (exclude instanceof RegExp) return exclude.test(name);
+  if (Array.isArray(exclude)) {
+    for (const item of exclude) {
+      if (isExclude(name, item)) return true;
+    }
+  }
+  return false;
+}
+
 // 使用 Map 作为缓存，存储已经计算过的组件依赖关系
 const cache = new Map<string, Set<string>>();
 // 递归查找一个组件的所有最终依赖（包括它自己）。
@@ -120,7 +147,7 @@ function findFinalDependencies(componentName: string, visited: Set<string> = new
 }
 
 // 解析器主函数
-export default (
+export const YcDesignVueResolver = (
   options: YcDesignVueResolverOptions = {
     exclude: [],
   },
